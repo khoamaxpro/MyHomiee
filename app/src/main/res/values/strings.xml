@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">MyHomiee</string>
+    <string name="inputPhoneNumber">NHẬP TÊN ĐĂNG NHẬP</string>
+    <string name="inputPassword">NHẬP MẬT KHẨU</string>
+    <string name="myhomiee">MyHomiee</string>
+    <string name="loginButton">Đăng nhập</string>
 </resources>
