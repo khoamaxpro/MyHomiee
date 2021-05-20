@@ -14,9 +14,9 @@ import java.util.List;
 public class ItemRoomDeviceAdapter extends RecyclerView.Adapter<ItemRoomDeviceAdapter.DataViewHolder> {
 
     private Context context;
-    private List<String> itemRoomDevices;
+    private List<ItemRoomDevice> itemRoomDevices;
 
-    public ItemRoomDeviceAdapter(Context context, List<String> itemRoomDevices) {
+    public ItemRoomDeviceAdapter(Context context, List<ItemRoomDevice> itemRoomDevices) {
         this.context = context;
         this.itemRoomDevices = itemRoomDevices;
     }
@@ -36,7 +36,7 @@ public class ItemRoomDeviceAdapter extends RecyclerView.Adapter<ItemRoomDeviceAd
     // MỌI THỨ DIỄN RA TRONG NÀY
     @Override
     public void onBindViewHolder(ItemRoomDeviceAdapter.DataViewHolder holder, int position) {
-        String itemRoomDevice= itemRoomDevices.get(position);
+        String itemRoomDevice = itemRoomDevices.get(position).getDeviceName();
         holder.txtRoomDeviceName.setText(itemRoomDevice);
     }
 

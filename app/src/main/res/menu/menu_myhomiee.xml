@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="Day Mode"
+        android:icon="@drawable/sunny"
+        android:id="@+id/menuDayMode"></item>
+
+    <item android:title="Night Mode"
+        android:id="@+id/menuNightMode"></item>
+
+    <item android:title="Setting"
+        android:id="@+id/menuSetting"></item>
+</menu>

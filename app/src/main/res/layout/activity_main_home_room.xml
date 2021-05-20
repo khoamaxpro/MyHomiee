@@ -32,7 +32,9 @@
             android:textStyle="bold"
             ></TextView>
         <ImageButton
+            android:id="@+id/imgbtnMenu"
             android:layout_weight="3"
+            android:background="@drawable/menu"
             android:layout_width="match_parent"
             android:layout_height="match_parent"></ImageButton>
     </LinearLayout>

@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -47,9 +48,9 @@ public class ItemRoomAdapter extends RecyclerView.Adapter<ItemRoomAdapter.DataVi
     public void onBindViewHolder(ItemRoomAdapter.DataViewHolder holder, int position) {
         ItemRoom itemRoom= itemRooms.get(position);
         holder.txtRoomName.setText(itemRoom.getRoomName());
-        List<String> roomDevices = new ArrayList<>();
+        List<ItemRoomDevice> roomDevices = new ArrayList<>();
         for(int i = 0;i < itemRoom.getNumberOfDevice();i++){
-            roomDevices.add(itemRoom.getDeviceName() + String.valueOf(i+1));
+            roomDevices.add(new ItemRoomDevice(itemRoom.getDeviceName() + String.valueOf(i+1)));
         }
         holder.itemRoomDeviceAdapter = new ItemRoomDeviceAdapter(holder.context, roomDevices);
         holder.recyclerView.setLayoutManager(holder.layoutManager_Room);
@@ -92,7 +93,7 @@ public class ItemRoomAdapter extends RecyclerView.Adapter<ItemRoomAdapter.DataVi
             linearLayoutRoomDevice = (LinearLayout) itemView.findViewById(R.id.linearRoomDevice);
             view = itemView;
             context = itemView.getContext();
-            layoutManager_Room = new LinearLayoutManager(itemView.getContext(), LinearLayoutManager.HORIZONTAL, false);
+            layoutManager_Room = new LinearLayoutManager(itemView.getContext(), LinearLayoutManager.VERTICAL, false);
 
         }
     }

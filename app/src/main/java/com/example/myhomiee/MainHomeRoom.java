@@ -10,10 +10,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 
 public class MainHomeRoom extends AppCompatActivity {
 
-    ImageButton imgbtnHome, imgbtnFan, imgbtnLamp;
+    ImageButton imgbtnHome, imgbtnFan, imgbtnLamp, imgbtnMenu;
     LinearLayout linearHome, linearLamp, linearFan;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,12 +86,24 @@ public class MainHomeRoom extends AppCompatActivity {
                 fragmentTransaction.commit();
             }
         });
+        imgbtnMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ShowMenu();
+            }
+        });
+    }
+    void ShowMenu(){
+        PopupMenu popupMenu = new PopupMenu(this, imgbtnMenu);
+        popupMenu.getMenuInflater().inflate(R.menu.menu_myhomiee, popupMenu.getMenu());
+        popupMenu.show();
     }
 
     void anhXa(){
         imgbtnHome = (ImageButton) findViewById(R.id.imgbtnHome);
         imgbtnLamp = (ImageButton) findViewById(R.id.imgbtnLamp);
         imgbtnFan = (ImageButton) findViewById(R.id.imgbtnFan);
+        imgbtnMenu = (ImageButton) findViewById(R.id.imgbtnMenu);
         linearHome = (LinearLayout) findViewById(R.id.linearHome);
         linearLamp = (LinearLayout) findViewById(R.id.linearLamp);
         linearFan = (LinearLayout) findViewById(R.id.linearFan);
