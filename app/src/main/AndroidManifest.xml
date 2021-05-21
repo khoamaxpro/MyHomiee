@@ -15,6 +15,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyHomiee">
+        <service android:name="org.eclipse.paho.android.service.MqttService"/>
         <activity android:name=".MainHomeRoom" />
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -27,7 +28,6 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
-        <service android:name="org.eclipse.paho.android.service.MqttService"/>
 
     </application>
 
