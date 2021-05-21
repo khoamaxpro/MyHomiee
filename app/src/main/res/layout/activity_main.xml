@@ -6,81 +6,69 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#FF4D4D"
-    android:weightSum="4"
     tools:context=".MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1.5"></LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_gravity="center"
+        android:gravity="center_vertical"
         android:orientation="vertical">
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/shrikhand"
             android:gravity="center_horizontal"
-            android:text="MyHomiee"
+            android:layout_marginBottom= "30dp"
+            android:text="@string/myhomiee"
             android:textColor="@color/white"
-            android:textSize="30dp"
-            android:textStyle="bold"></TextView>
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+
         <EditText
+            android:id="@+id/editTextEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:hint="NHẬP SỐ ĐIỆN THOẠI CỦA BẠN"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="20dp"
             android:background="#ffffff"
-            android:padding="10dp"></EditText>
+            android:textColorHint="#f0f0f0"
+            android:textColor="@color/black"
+            android:hint="@string/inputEmail"
+            android:padding="10dp"
+            android:textSize="20sp" />
+
         <EditText
+            android:id="@+id/editTextPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:hint="NHẬP MẬT KHẨU"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:layout_marginTop="10dp"
+            android:textColor="@color/black"
+            android:layout_marginTop="20dp"
             android:background="#ffffff"
-            android:padding="10dp"></EditText>
+            android:textColorHint="#f0f0f0"
+            android:inputType="textPassword"
+            android:hint="@string/inputPassword"
+            android:padding="10dp"
+            android:textSize="20sp" />
 
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:buttonTint="@color/white"
-            android:text="Ghi nhớ mật khẩu"
-            android:textSize="20dp"
-            android:textColor="@color/white"></CheckBox>
+
         <Button
-            android:id="@+id/btnLogIn"
+            android:id="@+id/btnLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="10dp"
-            android:text="Đăng nhập"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
+            android:layout_marginTop="50dp"
+            android:backgroundTint="@color/white"
+            android:text="@string/logIn"
             android:textColor="#FF4D4D"
-            android:textSize="20dp"
-            android:backgroundTint="@color/white"></Button>
+            android:textSize="20sp" />
+
 
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1.5"
-        android:gravity="center"
-        >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Made by RN Team"
-            android:textColor="@color/white"
-            android:layout_gravity="bottom"></TextView>
-    </LinearLayout>
+
 </LinearLayout>
