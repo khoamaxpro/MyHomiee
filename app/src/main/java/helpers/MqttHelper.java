@@ -13,20 +13,18 @@ import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
-/**
- * Created by wildan on 3/19/2017.
- */
+
 
 public class MqttHelper {
     public MqttAndroidClient mqttAndroidClient;
 
-    final String serverUri = "tcp://broker.hivemq.com:1883";
+    final String serverUri = "tcp://io.adafruit.com:1883";
 
-    final String clientId = "ExampleAndroidClient";
-    final String subscriptionTopic = "sensor/+";
+    final String clientId = "khoa01268";
+    final String subscriptionTopic = "khoa01268/groups/default";
 
-    final String username = "xxxxxxx";
-    final String password = "yyyyyyy";
+    final String username = "khoa01268";
+    final String password = "aio_vRMA03gUCx9OgIzJ8R4pc7xZv01P";
 
     public MqttHelper(Context context){
         mqttAndroidClient = new MqttAndroidClient(context, serverUri, clientId);
@@ -62,8 +60,8 @@ public class MqttHelper {
         MqttConnectOptions mqttConnectOptions = new MqttConnectOptions();
         mqttConnectOptions.setAutomaticReconnect(true);
         mqttConnectOptions.setCleanSession(false);
-        //mqttConnectOptions.setUserName(username);
-        //mqttConnectOptions.setPassword(password.toCharArray());
+        mqttConnectOptions.setUserName(username);
+        mqttConnectOptions.setPassword(password.toCharArray());
 
         try {
 

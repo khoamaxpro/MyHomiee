@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">MQTT Tutorial</string>
+    <string name="myhomiee">homiee</string>
+    <string name="inputEmail">inputEmail</string>
+    <string name="inputPassword">inputPassword</string>
+    <string name="logIn">login</string>
+    <string name="title_activity_main_home_room">MainHomeRoom</string>
 </resources>

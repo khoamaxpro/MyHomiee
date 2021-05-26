@@ -1,8 +1,11 @@
 package com.frost.mqtttutorial;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
@@ -18,8 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
     MqttHelper mqttHelper;
     ChartHelper mChart;
-    LineChart chart;
-
+    Button btnLogin;
     TextView dataReceived;
 
     @Override
@@ -27,12 +29,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        dataReceived = (TextView) findViewById(R.id.dataReceived);
-        chart = (LineChart) findViewById(R.id.chart);
-        mChart = new ChartHelper(chart);
-
+        btnLogin = (Button) findViewById(R.id.btnLogin);
         startMqtt();
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, MainHomeRoom.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void startMqtt(){
