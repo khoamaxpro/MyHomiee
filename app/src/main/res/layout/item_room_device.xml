@@ -21,11 +21,11 @@
             android:textStyle="bold"
             android:textColor="#505050"
             android:textSize="15dp"
-            android:layout_marginLeft="10dp"></TextView>
+            android:layout_marginLeft="10dp"/>
         <ImageView
             android:layout_weight="9"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/graph_small"></ImageView>
+            android:background="@drawable/graph_small"/>
     </LinearLayout>
 </LinearLayout>
