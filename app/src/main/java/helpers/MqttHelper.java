@@ -21,10 +21,10 @@ public class MqttHelper {
     final String serverUri = "tcp://io.adafruit.com:1883";
 
     final String clientId = "khoa01268";
-    final String subscriptionTopic = "khoa01268/feeds/bbc-led";
+    final String subscriptionTopic = "CSE_BBC/feeds/+";
 
-    final String username = "khoa01268";
-    final String password = "aio_yUHb29eqGIOHNZAXO6usezlF6z34";
+    final String username = "CSE_BBC";
+    final String password = "aio_KXfp47zegx3CthMAEj6pB0ZeKoEm";
 
     public MqttHelper(Context context){
         mqttAndroidClient = new MqttAndroidClient(context, serverUri, clientId);
