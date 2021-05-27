@@ -76,7 +76,9 @@ public class ItemRoomDeviceAdapter extends RecyclerView.Adapter<ItemRoomDeviceAd
                 holder.txtWeekButton.setTextColor(Color.parseColor("#F83737"));
             }
         });
+
         holder.imageViewGraph.setBackgroundResource(R.drawable.graph);
+
         MainHomeRoom mainHomeRoom = new MainHomeRoom();
         if(mainHomeRoom.isLight()){
             holder.linearLayoutDeviceList.setBackgroundColor(Color.parseColor("#FCDADA"));

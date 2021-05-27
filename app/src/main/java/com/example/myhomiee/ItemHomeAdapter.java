@@ -114,6 +114,7 @@ public class ItemHomeAdapter extends RecyclerView.Adapter<ItemHomeAdapter.DataVi
         holder.recyclerViewFan.setLayoutManager(holder.layoutManagerFan);
         holder.recyclerViewFan.setHasFixedSize(true);
         holder.recyclerViewFan.setAdapter(holder.itemHomeFanAdapter);
+
         //itemHomes.get(position).setLampList(itemHome.getLampList());
         //itemHomes.get(position).setFanList(itemHome.getFanList());
         //setItemHomes(itemHomes);

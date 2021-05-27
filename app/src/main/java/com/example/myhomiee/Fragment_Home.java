@@ -35,27 +35,37 @@ public class Fragment_Home extends Fragment {
         itemHomes = new ArrayList<>();
         List<ItemHomeDevice> lampList1 = new ArrayList<>();
         List<ItemHomeDevice> lampList2 = new ArrayList<>();
+        List<ItemHomeDevice> lampList3 = new ArrayList<>();
         List<ItemHomeDevice> fanList1 = new ArrayList<>();
         List<ItemHomeDevice> fanList2 = new ArrayList<>();
+        List<ItemHomeDevice> fanList3 = new ArrayList<>();
         for (int i = 0;i < 3;i++){
-            lampList1.add(new ItemHomeDevice("Lamp" + String.valueOf(i+1), true, false));
+            lampList1.add(new ItemHomeDevice("Lamp" + String.valueOf(i+1), "BedRoom 1", true, false));
+        }
+
+        for (int i = 0;i < 4;i++){
+            fanList1.add(new ItemHomeDevice("Fan" + String.valueOf(i+1), "BedRoom 1",true, false));
         }
         for (int i = 0;i < 4;i++){
-            lampList2.add(new ItemHomeDevice("Lamp" + String.valueOf(i+1), true, false));
-        }
-        for (int i = 0;i < 4;i++){
-            fanList1.add(new ItemHomeDevice("Fan" + String.valueOf(i+1), true, false));
+            lampList2.add(new ItemHomeDevice("Lamp" + String.valueOf(i+1),"BedRoom 2", true, false));
         }
         for (int i = 0;i < 5;i++){
-            fanList2.add(new ItemHomeDevice("Fan" + String.valueOf(i+1), true, false));
+            fanList2.add(new ItemHomeDevice("Fan" + String.valueOf(i+1),"BedRoom 2", true, false));
         }
+        for (int i = 0;i < 1;i++){
+            lampList3.add(new ItemHomeDevice("Lamp" + String.valueOf(i+1),"Living Room", true, false));
+        }
+        for (int i = 0;i < 2;i++){
+            fanList3.add(new ItemHomeDevice("Fan" + String.valueOf(i+1),"Living Room", true, false));
+        }
+
         ///////////////////////////////////////////////////////////////////////////////////////////////
         ///////////////////// DANH SÁCH PHÒNG Ở ĐÂY, GHI DỮ LIỆU VÀO ĐÂY //////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////////////////////
 
         itemHomes.add(new ItemHome("BedRoom 1", 32, 100, getImage(R.drawable.bedroom), false, lampList1, fanList1));
-        itemHomes.add(new ItemHome("BedRoom 2", 32, 100, getImage(R.drawable.bedroom), false, lampList1, fanList2));
-        itemHomes.add(new ItemHome("Living Room", 35, 200, getImage(R.drawable.livingroom), false, lampList2,fanList2));
+        itemHomes.add(new ItemHome("BedRoom 2", 32, 100, getImage(R.drawable.bedroom), false, lampList2, fanList2));
+        itemHomes.add(new ItemHome("Living Room", 35, 200, getImage(R.drawable.livingroom), false, lampList3,fanList3));
 
         ///////////////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////////////////////
