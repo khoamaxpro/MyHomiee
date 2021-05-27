@@ -5,11 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:weightSum="11"
+    android:weightSum="13"
     tools:context=".MainHomeRoom">
     <LinearLayout
+        android:id="@+id/linearMenu"
         android:weightSum="7"
-        android:layout_weight="5"
+        android:layout_weight="6"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
@@ -39,7 +40,7 @@
             android:layout_height="match_parent"></ImageButton>
     </LinearLayout>
     <LinearLayout
-        android:layout_weight="5"
+        android:layout_weight="6"
         android:weightSum="3"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

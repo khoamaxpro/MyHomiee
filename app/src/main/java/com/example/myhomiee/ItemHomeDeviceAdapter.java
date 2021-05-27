@@ -41,17 +41,7 @@ public class ItemHomeDeviceAdapter extends RecyclerView.Adapter<ItemHomeDeviceAd
     @Override
     public ItemHomeDeviceAdapter.DataViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView;
-        switch (viewType) {
-            case 1:
-                itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_device_on, parent, false);
-                break;
-            case 2:
-                itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_device_off, parent, false);
-                break;
-            default:
-                itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_device_on, parent, false);
-                break;
-        }
+        itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_device_on, parent, false);
         return new DataViewHolder(itemView);
     }
 
@@ -60,6 +50,7 @@ public class ItemHomeDeviceAdapter extends RecyclerView.Adapter<ItemHomeDeviceAd
     public void onBindViewHolder(ItemHomeDeviceAdapter.DataViewHolder holder, int position) {
         ItemHomeDevice itemHomeDevice = itemHomeDevices.get(position);
         holder.txtDeviceName.setText(itemHomeDevice.getDeviceName());
+
 
         if(itemHomeDevice.getParentOn() == true){
             holder.txtDeviceName.setTextColor(Color.parseColor("#A4A4A4"));

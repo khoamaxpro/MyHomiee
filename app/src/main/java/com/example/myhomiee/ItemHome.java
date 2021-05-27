@@ -1,5 +1,7 @@
 package com.example.myhomiee;
 
+import java.util.List;
+
 public class ItemHome {
 
     private String roomName;
@@ -7,17 +9,17 @@ public class ItemHome {
     private int roomBrightness;
     private byte[] roomImage;
     private boolean isOn;
-    private int numberOfLamp;
-    private int numberOfFan;
+    private List<ItemHomeDevice> LampList;
+    private List<ItemHomeDevice> FanList;
 
-    public ItemHome(String roomName, int roomTemperature, int roomBrightness, byte[] roomImage, boolean isOn, int numberOfLamp, int numberOfFan) {
+    public ItemHome(String roomName, int roomTemperature, int roomBrightness, byte[] roomImage, boolean isOn, List<ItemHomeDevice> lampList, List<ItemHomeDevice> fanList) {
         this.roomName = roomName;
         this.roomTemperature = roomTemperature;
         this.roomBrightness = roomBrightness;
         this.roomImage = roomImage;
         this.isOn = isOn;
-        this.numberOfLamp = numberOfLamp;
-        this.numberOfFan = numberOfFan;
+        LampList = lampList;
+        FanList = fanList;
     }
 
     public String getRoomName() {
@@ -60,19 +62,19 @@ public class ItemHome {
         isOn = on;
     }
 
-    public int getNumberOfLamp() {
-        return numberOfLamp;
+    public List<ItemHomeDevice> getLampList() {
+        return LampList;
     }
 
-    public void setNumberOfLamp(int numberOfLamp) {
-        this.numberOfLamp = numberOfLamp;
+    public void setLampList(List<ItemHomeDevice> lampList) {
+        LampList = lampList;
     }
 
-    public int getNumberOfFan() {
-        return numberOfFan;
+    public List<ItemHomeDevice> getFanList() {
+        return FanList;
     }
 
-    public void setNumberOfFan(int numberOfFan) {
-        this.numberOfFan = numberOfFan;
+    public void setFanList(List<ItemHomeDevice> fanList) {
+        FanList = fanList;
     }
 }

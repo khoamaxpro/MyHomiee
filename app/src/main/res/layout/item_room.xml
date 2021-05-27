@@ -2,8 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginRight="10dp"
+    android:layout_marginLeft="10dp">
     <LinearLayout
+        android:id="@+id/linearRoomName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -35,8 +38,8 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginTop="10dp"
-        android:background="#FCDADA"
-        android:padding="5dp">
+        android:background="#FFFFFF"
+        android:visibility="gone">
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_room"
             android:layout_width="match_parent"

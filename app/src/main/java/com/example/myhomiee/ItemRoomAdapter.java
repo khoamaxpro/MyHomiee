@@ -71,7 +71,14 @@ public class ItemRoomAdapter extends RecyclerView.Adapter<ItemRoomAdapter.DataVi
                 return false;
             }
         });
-
+        MainHomeRoom mainHomeRoom = new MainHomeRoom();
+        if(mainHomeRoom.isLight()){
+            holder.linearLayoutRoomName.setBackgroundColor(Color.parseColor("#F5F5F5"));
+            holder.linearLayoutRoomDevice.setBackgroundColor(Color.parseColor("#F9F9F9"));
+        }else {
+            holder.linearLayoutRoomName.setBackgroundColor(Color.parseColor("#ABABAB"));
+            holder.linearLayoutRoomDevice.setBackgroundColor(Color.parseColor("#222020"));
+        }
     }
 
     /**
@@ -82,7 +89,7 @@ public class ItemRoomAdapter extends RecyclerView.Adapter<ItemRoomAdapter.DataVi
         private TextView txtRoomName;
         private RecyclerView recyclerView;
         private ItemRoomDeviceAdapter itemRoomDeviceAdapter;
-        private LinearLayout linearLayoutRoomDevice;
+        private LinearLayout linearLayoutRoomName, linearLayoutRoomDevice;
         private View view;
         private Context context;
         private LinearLayoutManager layoutManager_Room;
@@ -90,6 +97,7 @@ public class ItemRoomAdapter extends RecyclerView.Adapter<ItemRoomAdapter.DataVi
             super(itemView);
             txtRoomName = (TextView) itemView.findViewById(R.id.txtRoomNameLampFan);
             recyclerView = (RecyclerView) itemView.findViewById(R.id.rv_room);
+            linearLayoutRoomName = (LinearLayout) itemView.findViewById(R.id.linearRoomName);
             linearLayoutRoomDevice = (LinearLayout) itemView.findViewById(R.id.linearRoomDevice);
             view = itemView;
             context = itemView.getContext();
