@@ -15,6 +15,7 @@
         android:id="@+id/switchDevice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:enabled="false"
         android:checked="false"
         android:track="@drawable/track1"
         ></Switch>

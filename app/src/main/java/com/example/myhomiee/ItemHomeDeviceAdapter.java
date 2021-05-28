@@ -62,11 +62,10 @@ public class ItemHomeDeviceAdapter extends RecyclerView.Adapter<ItemHomeDeviceAd
         ItemHomeDevice itemHomeDevice = itemHomeDevices.get(position);
         holder.txtDeviceName.setText(itemHomeDevice.getDeviceName());
         holder.switchDevice.setChecked(itemHomeDevice.getOn());
-
         if(itemHomeDevice.getParentOn() == true){
             holder.txtDeviceName.setTextColor(Color.parseColor("#A4A4A4"));
             holder.switchDevice.setTrackResource(R.drawable.track2);
-            holder.switchDevice.setEnabled(false);
+
             if(itemHomeDevice.getDeviceName().startsWith("L")){
                 holder.imageViewDeviceImage.setBackgroundResource(R.drawable.lamp_off);
             }else {
@@ -76,7 +75,6 @@ public class ItemHomeDeviceAdapter extends RecyclerView.Adapter<ItemHomeDeviceAd
         else{
             holder.txtDeviceName.setTextColor(Color.BLACK);
             holder.switchDevice.setTrackResource(R.drawable.track1);
-            holder.switchDevice.setEnabled(true);
             if(itemHomeDevice.getDeviceName().startsWith("L")){
                 holder.imageViewDeviceImage.setBackgroundResource(R.drawable.lamp_on);
             }else {
