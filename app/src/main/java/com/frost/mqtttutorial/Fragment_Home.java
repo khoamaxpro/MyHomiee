@@ -32,9 +32,7 @@ public class Fragment_Home extends Fragment {
         ///////////////////// DANH SÁCH PHÒNG Ở ĐÂY, GHI DỮ LIỆU VÀO ĐÂY //////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////////////////////
 
-        itemHomes.add(new ItemHome("BedRoom 1", 32, 100, getImage(R.drawable.bedroom), false, 3, 2));
-        itemHomes.add(new ItemHome("BedRoom 2", 32, 100, getImage(R.drawable.bedroom), false, 3, 2));
-        itemHomes.add(new ItemHome("Living Room", 35, 200, getImage(R.drawable.livingroom), false, 4,3));
+        itemHomes.add(new ItemHome("BedRoom 1", 32, 100, getImage(R.drawable.bedroom), false, 1, 1 ));
 
         ///////////////////////////////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////////////////////

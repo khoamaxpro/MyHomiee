@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class Fragment_Fan extends Fragment {
     private RecyclerView recyclerViewRoomFan;
     private List<ItemRoom> itemRooms;
@@ -23,8 +24,7 @@ public class Fragment_Fan extends Fragment {
         View view = inflater.inflate(R.layout.fragment_fan, container, false);
         recyclerViewRoomFan = (RecyclerView) view.findViewById(R.id.rv_fan);
         itemRooms = new ArrayList<>();
-        itemRooms.add(new ItemRoom("BedRoom 1","Fan", 3));
-        itemRooms.add(new ItemRoom("Living Room", "Fan",4));
+        itemRooms.add(new ItemRoom("BedRoom 1","Fan", 1));
         itemRoomAdapter = new ItemRoomAdapter(view.getContext(), itemRooms);
         LinearLayoutManager layoutManager_fan = new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerViewRoomFan.setLayoutManager(layoutManager_fan);

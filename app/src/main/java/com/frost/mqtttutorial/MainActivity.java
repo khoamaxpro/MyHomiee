@@ -30,7 +30,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         btnLogin = (Button) findViewById(R.id.btnLogin);
-        startMqtt();
+//        startMqtt();
+
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
             public void messageArrived(String topic, MqttMessage mqttMessage) throws Exception {
                 Log.w("Debug",mqttMessage.toString());
                 dataReceived.setText(mqttMessage.toString());
-                mChart.addEntry(Float.valueOf(mqttMessage.toString()));
             }
 
             @Override

@@ -24,8 +24,7 @@ public class Fragment_Lamp extends Fragment {
         View view = inflater.inflate(R.layout.fragment_lamp, container, false);
         recyclerViewRoomLamp = (RecyclerView) view.findViewById(R.id.rv_lamp);
         itemRooms = new ArrayList<>();
-        itemRooms.add(new ItemRoom("BedRoom 1","Lamp", 3));
-        itemRooms.add(new ItemRoom("Living Room", "Lamp",4));
+        itemRooms.add(new ItemRoom("BedRoom 1","Lamp", 1));
         itemRoomAdapter = new ItemRoomAdapter(view.getContext(), itemRooms);
         LinearLayoutManager layoutManager_lamp = new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerViewRoomLamp.setLayoutManager(layoutManager_lamp);

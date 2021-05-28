@@ -1,10 +1,12 @@
 package com.frost.mqtttutorial;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -15,8 +17,15 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 
+import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
+import org.eclipse.paho.client.mqttv3.MqttCallbackExtended;
+import org.eclipse.paho.client.mqttv3.MqttException;
+import org.eclipse.paho.client.mqttv3.MqttMessage;
 
+import java.nio.charset.Charset;
 import java.util.List;
+
+import helpers.MqttHelper;
 
 public class ItemHomeDeviceAdapter extends RecyclerView.Adapter<ItemHomeDeviceAdapter.DataViewHolder> {
 
@@ -57,14 +66,16 @@ public class ItemHomeDeviceAdapter extends RecyclerView.Adapter<ItemHomeDeviceAd
 
     // MỌI THỨ DIỄN RA TRONG NÀY
     @Override
-    public void onBindViewHolder(DataViewHolder holder, final int position) {
-        ItemHomeDevice itemHomeDevice = itemHomeDevices.get(position);
+    public void onBindViewHolder(final DataViewHolder holder, @SuppressLint("RecyclerView") final int position) {
+        final ItemHomeDevice itemHomeDevice = itemHomeDevices.get(position);
         holder.txtDeviceName.setText(itemHomeDevice.getDeviceName());
-
-        if(itemHomeDevice.getParentOn() == true){
+        holder.switchDevice.setChecked(itemHomeDevice.getOn());
+        holder.switchDevice.setEnabled(false);
+        startMqtt();
+        if(itemHomeDevice.getParentOn()){
             holder.txtDeviceName.setTextColor(Color.parseColor("#A4A4A4"));
             holder.switchDevice.setTrackResource(R.drawable.track2);
-            holder.switchDevice.setEnabled(false);
+
             if(itemHomeDevice.getDeviceName().startsWith("L")){
                 holder.imageViewDeviceImage.setBackgroundResource(R.drawable.lamp_off);
             }else {
@@ -74,20 +85,23 @@ public class ItemHomeDeviceAdapter extends RecyclerView.Adapter<ItemHomeDeviceAd
         else{
             holder.txtDeviceName.setTextColor(Color.BLACK);
             holder.switchDevice.setTrackResource(R.drawable.track1);
-            holder.switchDevice.setEnabled(true);
             if(itemHomeDevice.getDeviceName().startsWith("L")){
                 holder.imageViewDeviceImage.setBackgroundResource(R.drawable.lamp_on);
             }else {
                 holder.imageViewDeviceImage.setBackgroundResource(R.drawable.fan_on);
             }
         }
-        holder.switchDevice.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        holder.imageViewDeviceImage.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                itemHomeDevices.get(position).setOn(isChecked);
+            public boolean onTouch(View v, MotionEvent event) {
+                itemHomeDevice.setOn(!itemHomeDevice.getOn());
+                itemHomeDevices.set(position,itemHomeDevice);
+                if (itemHomeDevice.getDeviceName().equals("Lamp1")) {
+                    if (itemHomeDevice.getOn()) sendDataLED("ON"); else sendDataLED(("OFF"));
+                }
                 setItemHomeDevices(itemHomeDevices);
-            }
-        });
+                return false;
+        }});
 
     }
 
@@ -116,6 +130,63 @@ public class ItemHomeDeviceAdapter extends RecyclerView.Adapter<ItemHomeDeviceAd
             switchDevice = (Switch) itemView.findViewById(R.id.switchDevice);
         }
     }
+    private void startMqtt(){
+        MqttHelper mqttHelper = new MqttHelper(context.getApplicationContext());
+        mqttHelper.mqttAndroidClient.setCallback(new MqttCallbackExtended() {
+            @Override
+            public void connectComplete(boolean b, String s) {
+                Log.w("Debug","Connected");
+            }
 
+            @Override
+            public void connectionLost(Throwable throwable) {
+
+            }
+
+            @Override
+            public void messageArrived(String topic, MqttMessage mqttMessage) throws Exception {
+                Log.e("ON",mqttMessage.toString());
+                if (mqttMessage.toString().equals("ON")) {
+                    for (int i =0  ; i<itemHomeDevices.size();i++) {
+                        if (itemHomeDevices.get(i).getDeviceName().equals("Lamp1")){
+                            itemHomeDevices.get(i).setOn(true);
+                            setItemHomeDevices(itemHomeDevices);
+                        }
+
+                    }
+                }
+                else if (mqttMessage.toString().equals("OFF")) {
+                    for (int i =0  ; i<itemHomeDevices.size();i++) {
+                        if (itemHomeDevices.get(i).getDeviceName().equals("Lamp1")){
+                            itemHomeDevices.get(i).setOn(false);
+                            setItemHomeDevices(itemHomeDevices);
+
+                        }
+                    }
+                }
+                for (int i =0  ; i<itemHomeDevices.size();i++) {
+                    if (itemHomeDevices.get(i).getDeviceName().equals("Lamp1")) Log.e("status", String.valueOf((itemHomeDevices.get(i).getOn())));
+                }
+            }
+
+            @Override
+            public void deliveryComplete(IMqttDeliveryToken iMqttDeliveryToken) {
+
+            }
+        });
+    }
+    private void sendDataLED(String data){
+        MqttMessage msg = new MqttMessage();
+//        String finaldata = "{\"id\":\"1\",\"name\":\"LED\",\"data\":\""+ data + "\",\"unit\":\"\"}" ;
+
+        msg.setPayload(data.getBytes());
+
+        Log.d("ABC","Publish:"+ msg);
+        try {
+            MqttHelper.mqttAndroidClient.publish("khoa01268/feeds/bbc-led", msg);
+            } catch ( MqttException e){
+
+            }
+        }
 }
 

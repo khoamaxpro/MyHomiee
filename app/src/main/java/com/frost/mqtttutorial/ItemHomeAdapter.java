@@ -1,5 +1,6 @@
 package com.frost.mqtttutorial;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -56,7 +57,7 @@ public class ItemHomeAdapter extends RecyclerView.Adapter<ItemHomeAdapter.DataVi
 
     // MỌI THỨ DIỄN RA TRONG NÀY
     @Override
-    public void onBindViewHolder(final DataViewHolder holder, final int position) {
+    public void onBindViewHolder(final DataViewHolder holder, @SuppressLint("RecyclerView") final int position) {
         ItemHome itemHome = itemHomes.get(position);
         holder.txtRoomName.setText(itemHome.getRoomName());
         holder.txtRoomTemperature.setText(": " + String.valueOf(itemHome.getRoomTemperature()) + "°C");

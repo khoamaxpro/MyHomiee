@@ -16,15 +16,13 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 
 public class MqttHelper {
-    public MqttAndroidClient mqttAndroidClient;
+    public static MqttAndroidClient mqttAndroidClient;
 
     final String serverUri = "tcp://io.adafruit.com:1883";
-
-    final String clientId = "khoa01268";
-    final String subscriptionTopic = "CSE_BBC/feeds/+";
-
-    final String username = "CSE_BBC";
-    final String password = "aio_KXfp47zegx3CthMAEj6pB0ZeKoEm";
+    final String clientId = "khoa0ss1268";
+    final String subscriptionTopic = "khoa01268/feeds/bbc-led";
+    final String username = "khoa01268";
+    final String password = "aio_wgZT765O3cLBVrXoKLyPN75k2xih";
 
     public MqttHelper(Context context){
         mqttAndroidClient = new MqttAndroidClient(context, serverUri, clientId);
