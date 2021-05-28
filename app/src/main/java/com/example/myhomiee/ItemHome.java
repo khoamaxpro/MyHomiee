@@ -9,17 +9,17 @@ public class ItemHome {
     private int roomBrightness;
     private byte[] roomImage;
     private boolean isOn;
-    private List<ItemHomeDevice> LampList;
-    private List<ItemHomeDevice> FanList;
+    private int numberOfLamp;
+    private int numberOfFan;
 
-    public ItemHome(String roomName, int roomTemperature, int roomBrightness, byte[] roomImage, boolean isOn, List<ItemHomeDevice> lampList, List<ItemHomeDevice> fanList) {
+    public ItemHome(String roomName, int roomTemperature, int roomBrightness, byte[] roomImage, boolean isOn, int numberOfLamp, int numberOfFan) {
         this.roomName = roomName;
         this.roomTemperature = roomTemperature;
         this.roomBrightness = roomBrightness;
         this.roomImage = roomImage;
         this.isOn = isOn;
-        LampList = lampList;
-        FanList = fanList;
+        this.numberOfLamp = numberOfLamp;
+        this.numberOfFan = numberOfFan;
     }
 
     public String getRoomName() {
@@ -62,19 +62,19 @@ public class ItemHome {
         isOn = on;
     }
 
-    public List<ItemHomeDevice> getLampList() {
-        return LampList;
+    public int getNumberOfLamp() {
+        return numberOfLamp;
     }
 
-    public void setLampList(List<ItemHomeDevice> lampList) {
-        LampList = lampList;
+    public void setNumberOfLamp(int numberOfLamp) {
+        this.numberOfLamp = numberOfLamp;
     }
 
-    public List<ItemHomeDevice> getFanList() {
-        return FanList;
+    public int getNumberOfFan() {
+        return numberOfFan;
     }
 
-    public void setFanList(List<ItemHomeDevice> fanList) {
-        FanList = fanList;
+    public void setNumberOfFan(int numberOfFan) {
+        this.numberOfFan = numberOfFan;
     }
 }

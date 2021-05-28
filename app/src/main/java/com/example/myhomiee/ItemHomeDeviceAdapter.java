@@ -12,6 +12,7 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.recyclerview.widget.RecyclerView;
@@ -41,7 +42,17 @@ public class ItemHomeDeviceAdapter extends RecyclerView.Adapter<ItemHomeDeviceAd
     @Override
     public ItemHomeDeviceAdapter.DataViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView;
-        itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_device_on, parent, false);
+        switch (viewType) {
+            case 1:
+                itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_device_on, parent, false);
+                break;
+            case 2:
+                itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_device_off, parent, false);
+                break;
+            default:
+                itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_device_on, parent, false);
+                break;
+        }
         return new DataViewHolder(itemView);
     }
 
@@ -50,7 +61,7 @@ public class ItemHomeDeviceAdapter extends RecyclerView.Adapter<ItemHomeDeviceAd
     public void onBindViewHolder(ItemHomeDeviceAdapter.DataViewHolder holder, int position) {
         ItemHomeDevice itemHomeDevice = itemHomeDevices.get(position);
         holder.txtDeviceName.setText(itemHomeDevice.getDeviceName());
-
+        holder.switchDevice.setChecked(itemHomeDevice.getOn());
 
         if(itemHomeDevice.getParentOn() == true){
             holder.txtDeviceName.setTextColor(Color.parseColor("#A4A4A4"));
@@ -72,11 +83,18 @@ public class ItemHomeDeviceAdapter extends RecyclerView.Adapter<ItemHomeDeviceAd
                 holder.imageViewDeviceImage.setBackgroundResource(R.drawable.fan_on);
             }
         }
-        holder.switchDevice.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+        holder.imageViewDeviceImage.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                itemHomeDevices.get(position).setOn(isChecked);
+            public boolean onTouch(View v, MotionEvent event) {
+                itemHomeDevice.setOn(!itemHomeDevice.getOn());
+                itemHomeDevices.set(position, itemHomeDevice);
+//                Toast.makeText(context, itemHomeDevice.getDeviceName(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context, itemHomeDevice.getRoomName(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context, String.valueOf(itemHomeDevice.getOn()), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context, String.valueOf(itemHomeDevice.getParentOn()), Toast.LENGTH_SHORT).show();
                 setItemHomeDevices(itemHomeDevices);
+                return false;
             }
         });
 

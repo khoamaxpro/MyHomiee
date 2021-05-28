@@ -93,31 +93,43 @@ public class ItemHomeAdapter extends RecyclerView.Adapter<ItemHomeAdapter.DataVi
         holder.switchCompat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                for(int i = 0;i < itemHome.getLampList().size();i++){
-                    itemHome.getLampList().get(i).setParentOn(isChecked);
+                for(int i = 0;i < holder.itemLamps.size();i++){
+                    holder.itemLamps.get(i).setParentOn(isChecked);
                 }
-                for(int i = 0;i < itemHome.getFanList().size();i++){
-                    itemHome.getFanList().get(i).setParentOn(isChecked);
+                for(int i = 0;i < holder.itemFans.size();i++){
+                    holder.itemFans.get(i).setParentOn(isChecked);
                 }
-                itemHome.setOn(isChecked);
-                itemHomes.set(position, itemHome);
+                holder.itemHomeLampAdapter = new ItemHomeDeviceAdapter(holder.context, holder.itemLamps);
+                holder.recyclerViewLamp.setLayoutManager(holder.layoutManagerLamp);
+                holder.recyclerViewLamp.setHasFixedSize(true);
+                holder.recyclerViewLamp.setAdapter(holder.itemHomeLampAdapter);
+
+                holder.itemHomeFanAdapter = new ItemHomeDeviceAdapter(context, holder.itemFans);
+                holder.recyclerViewFan.setLayoutManager(holder.layoutManagerFan);
+                holder.recyclerViewFan.setHasFixedSize(true);
+                holder.recyclerViewFan.setAdapter(holder.itemHomeFanAdapter);
+                itemHomes.get(position).setOn(isChecked);
                 setItemHomes(itemHomes);
             }
         });
+        if(holder.itemLamps.isEmpty() && holder.itemFans.isEmpty())
+        {
+            for(int i = 0;i < itemHome.getNumberOfLamp();i++){
+                holder.itemLamps.add(new ItemHomeDevice("Lamp" + String.valueOf(i+1), itemHome.getRoomName(), true, itemHome.getOn()));
+            }
+            for(int i = 0;i < itemHome.getNumberOfFan();i++){
+                holder.itemFans.add(new ItemHomeDevice("Fan" + String.valueOf(i+1),  itemHome.getRoomName(),true, itemHome.getOn()));
+            }
+            holder.itemHomeLampAdapter = new ItemHomeDeviceAdapter(holder.context, holder.itemLamps);
+            holder.recyclerViewLamp.setLayoutManager(holder.layoutManagerLamp);
+            holder.recyclerViewLamp.setHasFixedSize(true);
+            holder.recyclerViewLamp.setAdapter(holder.itemHomeLampAdapter);
 
-        holder.itemHomeLampAdapter = new ItemHomeDeviceAdapter(holder.context, itemHome.getLampList());
-        holder.recyclerViewLamp.setLayoutManager(holder.layoutManagerLamp);
-        holder.recyclerViewLamp.setHasFixedSize(true);
-        holder.recyclerViewLamp.setAdapter(holder.itemHomeLampAdapter);
-
-        holder.itemHomeFanAdapter = new ItemHomeDeviceAdapter(context, itemHome.getFanList());
-        holder.recyclerViewFan.setLayoutManager(holder.layoutManagerFan);
-        holder.recyclerViewFan.setHasFixedSize(true);
-        holder.recyclerViewFan.setAdapter(holder.itemHomeFanAdapter);
-
-        //itemHomes.get(position).setLampList(itemHome.getLampList());
-        //itemHomes.get(position).setFanList(itemHome.getFanList());
-        //setItemHomes(itemHomes);
+            holder.itemHomeFanAdapter = new ItemHomeDeviceAdapter(context, holder.itemFans);
+            holder.recyclerViewFan.setLayoutManager(holder.layoutManagerFan);
+            holder.recyclerViewFan.setHasFixedSize(true);
+            holder.recyclerViewFan.setAdapter(holder.itemHomeFanAdapter);
+        }
     }
 
     /**
@@ -135,6 +147,7 @@ public class ItemHomeAdapter extends RecyclerView.Adapter<ItemHomeAdapter.DataVi
         private View view;
         private Context context;
         LinearLayoutManager layoutManagerLamp, layoutManagerFan;
+        private List<ItemHomeDevice> itemLamps, itemFans;
         public DataViewHolder(View itemView) {
             super(itemView);
             txtRoomName = (TextView) itemView.findViewById(R.id.txtRoomName);
@@ -150,6 +163,8 @@ public class ItemHomeAdapter extends RecyclerView.Adapter<ItemHomeAdapter.DataVi
             linearLayoutDevice = (LinearLayout) itemView.findViewById(R.id.linearDevice);
             view = itemView;
             context = itemView.getContext();
+            itemLamps = new ArrayList<>();
+            itemFans = new ArrayList<>();
             layoutManagerLamp = new LinearLayoutManager(itemView.getContext(), LinearLayoutManager.HORIZONTAL, false);
             layoutManagerFan = new LinearLayoutManager(itemView.getContext(), LinearLayoutManager.HORIZONTAL, false);
             ///////////////////////////// HÌNH ẢNH ///////////////////////////
