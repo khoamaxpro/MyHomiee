@@ -80,21 +80,22 @@ public class ItemHomeDeviceAdapter extends RecyclerView.Adapter<ItemHomeDeviceAd
             }else {
                 holder.imageViewDeviceImage.setBackgroundResource(R.drawable.fan_on);
             }
-        }
-
-        holder.imageViewDeviceImage.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                itemHomeDevice.setOn(!itemHomeDevice.getOn());
-                itemHomeDevices.set(position, itemHomeDevice);
+            holder.imageViewDeviceImage.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    itemHomeDevice.setOn(!itemHomeDevice.getOn());
+                    itemHomeDevices.set(position, itemHomeDevice);
 //                Toast.makeText(context, itemHomeDevice.getDeviceName(), Toast.LENGTH_SHORT).show();
 //                Toast.makeText(context, itemHomeDevice.getRoomName(), Toast.LENGTH_SHORT).show();
 //                Toast.makeText(context, String.valueOf(itemHomeDevice.getOn()), Toast.LENGTH_SHORT).show();
 //                Toast.makeText(context, String.valueOf(itemHomeDevice.getParentOn()), Toast.LENGTH_SHORT).show();
-                setItemHomeDevices(itemHomeDevices);
-                return false;
-            }
-        });
+                    setItemHomeDevices(itemHomeDevices);
+                    return false;
+                }
+            });
+        }
+
+
 
     }
 
