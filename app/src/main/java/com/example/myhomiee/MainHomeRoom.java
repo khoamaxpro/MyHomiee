@@ -1,6 +1,7 @@
 package com.example.myhomiee;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.appcompat.view.menu.MenuPopupHelper;
@@ -8,24 +9,41 @@ import androidx.appcompat.view.menu.MenuPopupHelper;
 import android.annotation.SuppressLint;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.app.TimePickerDialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.Layout;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.PopupMenu;
+import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class MainHomeRoom extends AppCompatActivity {
 
     static boolean lightMode = true;
+    static String temparature = "";
+    static String timeLight = "";
+    static String timeNightMode = "";
+    static String timeSleep = "";
+    EditText editTextTemparature, editTextLightTime, editTextNightModeTime, editTextSleepTime;
+    TimePickerDialog timePickerDialog;
     ImageButton imgbtnHome, imgbtnFan, imgbtnLamp, imgbtnMenu;
     LinearLayout linearHome, linearLamp, linearFan, linearMenu, linearHomeListView, linearLampListView, linearFanListView;
     @Override
@@ -54,6 +72,20 @@ public class MainHomeRoom extends AppCompatActivity {
         imgbtnHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(!timeNightMode.isEmpty()){
+                    String currentTime = new SimpleDateFormat("HH:mm", Locale.getDefault()).format(new Date());
+                    currentTime = currentTime.replace(":", "");
+                    String timeNightMode_2 = timeNightMode;
+                    timeNightMode_2 = timeNightMode_2.replace(":","");
+                    if(Integer.parseInt(timeNightMode_2) < Integer.parseInt(currentTime)){
+                        linearMenu.setBackgroundColor(Color.parseColor("#6B0606"));
+                        lightMode = false;
+                    }else{
+                        linearMenu.setBackgroundColor(Color.parseColor("#FF4D4D"));
+                        lightMode = true;
+                    }
+                }
+
                 imgbtnHome.setBackgroundResource(R.drawable.fragment_home_on);
                 linearHome.setBackgroundColor(Color.parseColor("#ffffff"));
                 imgbtnLamp.setBackgroundResource(R.drawable.fragment_lamp_off);
@@ -125,7 +157,7 @@ public class MainHomeRoom extends AppCompatActivity {
                                 lightMode = false;
                                 return true;
                             case R.id.menuSetting:
-                                Toast.makeText(MainHomeRoom.this, "Setting", Toast.LENGTH_SHORT).show();
+                                showSettingDialog();
                                 return true;
                             default:
                                 return false;
@@ -178,5 +210,95 @@ public class MainHomeRoom extends AppCompatActivity {
         linearLamp = (LinearLayout) findViewById(R.id.linearLamp);
         linearFan = (LinearLayout) findViewById(R.id.linearFan);
         linearMenu = (LinearLayout) findViewById(R.id.linearMenu);
+    }
+
+    void showSettingDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainHomeRoom.this, R.style.AlertDialogTheme);
+        View view = LayoutInflater.from(MainHomeRoom.this).inflate(
+                R.layout.layout_setting,
+                (LinearLayout)findViewById(R.id.linearSetting)
+        );
+        builder.setView(view);
+        final AlertDialog alertDialog = builder.create();
+        editTextTemparature = (EditText) view.findViewById(R.id.editTextTemparature);
+        editTextLightTime = (EditText) view.findViewById(R.id.editTextLightTime);
+        editTextNightModeTime = (EditText) view.findViewById(R.id.editTextNightModeTime);
+        editTextSleepTime = (EditText) view.findViewById(R.id.editTextSleepTime);
+
+        editTextTemparature.setText(temparature);
+        editTextLightTime.setText(timeLight);
+        editTextLightTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editTextLightTime.setText("");
+                timePickerDialog = new TimePickerDialog(MainHomeRoom.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        if(minute < 10){
+                            editTextLightTime.setText(hourOfDay + ":0" + minute);
+                        }
+                        else{
+                            editTextLightTime.setText(hourOfDay + ":" + minute);
+                        }
+                    }
+                }, 0,0,false);
+                timePickerDialog.show();
+            }
+        });
+
+        editTextNightModeTime.setText(timeNightMode);
+        editTextNightModeTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editTextNightModeTime.setText("");
+                timePickerDialog = new TimePickerDialog(MainHomeRoom.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        if(minute < 10){
+                            editTextNightModeTime.setText(hourOfDay + ":0" + minute);
+                        }
+                        else{
+                            editTextNightModeTime.setText(hourOfDay + ":" + minute);
+                        }
+                    }
+                }, 0,0,false);
+                timePickerDialog.show();
+            }
+        });
+        editTextSleepTime.setText(timeSleep);
+        editTextSleepTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editTextSleepTime.setText("");
+                timePickerDialog = new TimePickerDialog(MainHomeRoom.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        if(minute < 10){
+                            editTextSleepTime.setText(hourOfDay + ":0" + minute);
+                        }
+                        else{
+                            editTextSleepTime.setText(hourOfDay + ":" + minute);
+                        }
+                    }
+                }, 0,0,false);
+                timePickerDialog.show();
+            }
+        });
+
+        view.findViewById(R.id.btnSave).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                temparature = editTextTemparature.getText().toString().trim();
+                timeLight = editTextLightTime.getText().toString().trim();
+                timeNightMode = editTextNightModeTime.getText().toString().trim();
+                timeSleep = editTextSleepTime.getText().toString().trim();
+                Toast.makeText(MainHomeRoom.this, "Điều chỉnh Setting thành công", Toast.LENGTH_SHORT).show();
+                alertDialog.dismiss();
+            }
+        });
+        if(alertDialog.getWindow() != null){
+            alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+        }
+        alertDialog.show();
     }
 }
