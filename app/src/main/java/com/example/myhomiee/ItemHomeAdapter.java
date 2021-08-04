@@ -66,13 +66,11 @@ public class ItemHomeAdapter extends RecyclerView.Adapter<ItemHomeAdapter.DataVi
             holder.txtRoomState.setText("Working");
             holder.txtRoomState.setTextColor(Color.parseColor("#159500"));
             holder.imageViewRoomState.setBackgroundResource(R.drawable.cycle_on);
-            holder.switchCompat.setChecked(true);
         }
         else {
             holder.txtRoomState.setText("OFF");
             holder.txtRoomState.setTextColor(Color.parseColor("#535353"));
             holder.imageViewRoomState.setBackgroundResource(R.drawable.cycle_off);
-            holder.switchCompat.setChecked(false);
         }
         holder.txtRoomName.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -113,10 +111,10 @@ public class ItemHomeAdapter extends RecyclerView.Adapter<ItemHomeAdapter.DataVi
         if(holder.itemLamps.isEmpty() && holder.itemFans.isEmpty())
         {
             for(int i = 0;i < itemHome.getNumberOfLamp();i++){
-                holder.itemLamps.add(new ItemHomeDevice("Lamp" + String.valueOf(i+1), itemHome.getRoomName(), true, itemHome.getOn()));
+                holder.itemLamps.add(new ItemHomeDevice("Lamp" + String.valueOf(i+1), itemHome.getRoomName(), false, itemHome.getOn()));
             }
             for(int i = 0;i < itemHome.getNumberOfFan();i++){
-                holder.itemFans.add(new ItemHomeDevice("Fan" + String.valueOf(i+1),  itemHome.getRoomName(),true, itemHome.getOn()));
+                holder.itemFans.add(new ItemHomeDevice("Fan" + String.valueOf(i+1),  itemHome.getRoomName(),false, itemHome.getOn()));
             }
             holder.itemHomeLampAdapter = new ItemHomeDeviceAdapter(holder.context, holder.itemLamps);
             holder.recyclerViewLamp.setLayoutManager(holder.layoutManagerLamp);
