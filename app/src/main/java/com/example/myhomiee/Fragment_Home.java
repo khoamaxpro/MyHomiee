@@ -106,11 +106,27 @@ public class Fragment_Home extends Fragment {
                 itemHomes.clear();
                 if(s.name.equals("LED")){
                     itemHomes.add(new ItemHome("BedRoom 1", itemHome.getRoomTemperature(), itemHome.getRoomBrightness(), getImage(R.drawable.bedroom), itemHome.getOn(), s.data, itemHome.getNumberOfFan()));
-                }else if(s.name.equals("DRV")){
+                }
+                else if(s.name.equals("DRV")){
                     itemHomes.add(new ItemHome("BedRoom 1", itemHome.getRoomTemperature(), itemHome.getRoomBrightness(), getImage(R.drawable.bedroom), itemHome.getOn(),itemHome.getNumberOfLamp(), s.data));
                 }
-                else if(s.name.equals("LIGHT") && s.data > 400 && itemHome.getOn()){
+                else if(s.name.equals("LIGHT") && !itemHome.getOn()){
                     itemHomes.add(new ItemHome("BedRoom 1", itemHome.getRoomTemperature(), s.data, getImage(R.drawable.bedroom), itemHome.getOn(),itemHome.getNumberOfLamp(), itemHome.getNumberOfFan()));
+                }
+                else if(s.name.equals("TEMP") && !itemHome.getOn()){
+                    itemHomes.add(new ItemHome("BedRoom 1", s.data, itemHome.getRoomBrightness(), getImage(R.drawable.bedroom), itemHome.getOn(),itemHome.getNumberOfLamp(), itemHome.getNumberOfFan()));
+                }
+                else if(s.name.equals("LIGHT") && s.data > 400 && itemHome.getOn()){
+                    itemHomes.add(new ItemHome("BedRoom 1", itemHome.getRoomTemperature(), s.data, getImage(R.drawable.bedroom), itemHome.getOn(),0, itemHome.getNumberOfFan()));
+                }
+                else if(s.name.equals("LIGHT") && s.data < 400 && itemHome.getOn()){
+                    itemHomes.add(new ItemHome("BedRoom 1", itemHome.getRoomTemperature(), s.data, getImage(R.drawable.bedroom), itemHome.getOn(),1, itemHome.getNumberOfFan()));
+                }
+                else if(s.name.equals("TEMP") && s.data > 25 && itemHome.getOn()){
+                    itemHomes.add(new ItemHome("BedRoom 1", itemHome.getRoomTemperature(), s.data, getImage(R.drawable.bedroom), itemHome.getOn(),itemHome.getNumberOfLamp(), 1));
+                }
+                else if(s.name.equals("TEMP") && s.data < 25 && itemHome.getOn()){
+                    itemHomes.add(new ItemHome("BedRoom 1", itemHome.getRoomTemperature(), s.data, getImage(R.drawable.bedroom), itemHome.getOn(),itemHome.getNumberOfLamp(),0));
                 }
                 else {
                     itemHomes.add(new ItemHome("BedRoom 1", s.data, itemHome.getRoomBrightness(), getImage(R.drawable.bedroom), itemHome.getOn(),itemHome.getNumberOfLamp(), itemHome.getNumberOfFan()));

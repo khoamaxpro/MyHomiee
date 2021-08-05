@@ -20,12 +20,12 @@ public class MqttHelper {
 
     final String serverUri = "tcp://io.adafruit.com:1883";
     final String clientId = "khoa0ss1268";
-    final String subscriptionTopic = "khoa01258/feeds/#";
+    final String subscriptionTopic = "khoa01268/feeds/#";
 
 
 
     final String username = "khoa01268";
-    final String password = "aio_ApIM06LwK2d1OVD9Zp15fT91jdQs";
+    final String password = "aio_aMtO25gT61ImUhuqCwlaTmvuUQ31";
 
     public MqttHelper(Context context){
         mqttAndroidClient = new MqttAndroidClient(context, serverUri, clientId);
@@ -103,7 +103,7 @@ public class MqttHelper {
 
                 @Override
                 public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
-                    Log.w("Mqtt", "Subscribed 1 fail!");
+                    Log.w("Mqtt", "Subscribed fail!");
                 }
             });
 
