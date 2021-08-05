@@ -26,18 +26,22 @@
             android:text="MyHomiee"
             android:textColor="@color/white"
             android:textSize="30dp"
-            android:textStyle="bold"></TextView>
+            android:textStyle="bold" />
+
         <EditText
+            android:id="@+id/userEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20dp"
-            android:hint="NHẬP SỐ ĐIỆN THOẠI CỦA BẠN"
+            android:hint="NHẬP EMAIL CỦA BẠN"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="20dp"
             android:background="#ffffff"
-            android:padding="10dp"></EditText>
+            android:padding="10dp" />
+
         <EditText
+            android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20dp"
@@ -46,7 +50,8 @@
             android:layout_marginRight="20dp"
             android:layout_marginTop="10dp"
             android:background="#ffffff"
-            android:padding="10dp"></EditText>
+            android:inputType="textPassword"
+            android:padding="10dp" />
 
         <CheckBox
             android:layout_width="wrap_content"
@@ -55,7 +60,8 @@
             android:buttonTint="@color/white"
             android:text="Ghi nhớ mật khẩu"
             android:textSize="20dp"
-            android:textColor="@color/white"></CheckBox>
+            android:textColor="@color/white" />
+
         <Button
             android:id="@+id/btnLogIn"
             android:layout_width="match_parent"
@@ -66,7 +72,7 @@
             android:text="Đăng nhập"
             android:textColor="#FF4D4D"
             android:textSize="20dp"
-            android:backgroundTint="@color/white"></Button>
+            android:backgroundTint="@color/white" />
 
     </LinearLayout>
     <LinearLayout
@@ -75,12 +81,13 @@
         android:layout_weight="1.5"
         android:gravity="center"
         >
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Made by RN Team"
             android:textColor="@color/white"
-            android:layout_gravity="bottom"></TextView>
+            android:layout_gravity="bottom" />
     </LinearLayout>
 
 </LinearLayout>

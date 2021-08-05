@@ -93,6 +93,12 @@ public class ItemHomeDeviceAdapter extends RecyclerView.Adapter<ItemHomeDeviceAd
                 public boolean onTouch(View v, MotionEvent event) {
                     itemHomeDevice.setOn(!itemHomeDevice.getOn());
                     itemHomeDevices.set(position_2, itemHomeDevice);
+                    if (itemHomeDevice.getDeviceName().equals("Lamp1")) {
+                        if (itemHomeDevice.getOn()) sendDataLED("1"); else sendDataLED(("0"));
+                    }
+                    if (itemHomeDevice.getDeviceName().equals("Fan1")) {
+                        if (itemHomeDevice.getOn()) sendDataFAN("255"); else sendDataFAN(("0"));
+                    }
                     setItemHomeDevices(itemHomeDevices);
 
 
@@ -126,6 +132,32 @@ public class ItemHomeDeviceAdapter extends RecyclerView.Adapter<ItemHomeDeviceAd
             txtDeviceName = (TextView) itemView.findViewById(R.id.txtDeviceName);
             imageViewDeviceImage = (ImageView) itemView.findViewById(R.id.imageViewDevice);
             switchDevice = (Switch) itemView.findViewById(R.id.switchDevice);
+        }
+    }
+    private void sendDataLED(String data){
+        MqttMessage msg = new MqttMessage();
+        String finaldata = "{\"id\":\"1\",\"name\":\"LED\",\"data\":\""+ data + "\",\"unit\":\"\"}" ;
+
+        msg.setPayload(finaldata.getBytes());
+
+        Log.d("ABC","Publish:"+ msg);
+        try {
+            MqttHelper.mqttAndroidClient.publish("khoa01268/feeds/bk-iot-led", msg);
+        } catch ( MqttException e){
+
+        }
+    }
+    private void sendDataFAN(String data){
+        MqttMessage msg = new MqttMessage();
+        String finaldata = "{\"id\":\"10\",\"name\":\"DRV\",\"data\":\""+ data + "\",\"unit\":\"\"}" ;
+
+        msg.setPayload(finaldata.getBytes());
+
+        Log.d("ABC","Publish:"+ msg);
+        try {
+            MqttHelper.mqttAndroidClient.publish("khoa01268/feeds/bk-iot-drv", msg);
+        } catch ( MqttException e){
+
         }
     }
 }
