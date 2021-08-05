@@ -103,9 +103,16 @@ public class Fragment_Home extends Fragment {
                 ItemHome itemHome = itemHomes.get(0);
                 itemHomes.clear();
                 if(s.name.equals("LED")){
-                    itemHomes.add(new ItemHome("BedRoom 1", 32, 100, getImage(R.drawable.bedroom), itemHome.getOn(), s.data, itemHome.getNumberOfFan()));
-                }else {
-                    itemHomes.add(new ItemHome("BedRoom 1", 32, 100, getImage(R.drawable.bedroom), itemHome.getOn(),itemHome.getNumberOfLamp(), s.data));
+                    itemHomes.add(new ItemHome("BedRoom 1", itemHome.getRoomTemperature(), itemHome.getRoomBrightness(), getImage(R.drawable.bedroom), itemHome.getOn(), s.data, itemHome.getNumberOfFan()));
+                }else if(s.name.equals("DRV")){
+                    itemHomes.add(new ItemHome("BedRoom 1", itemHome.getRoomTemperature(), itemHome.getRoomBrightness(), getImage(R.drawable.bedroom), itemHome.getOn(),itemHome.getNumberOfLamp(), s.data));
+                }
+                else if(s.name.equals("LIGHT")){
+                    itemHomes.add(new ItemHome("BedRoom 1", itemHome.getRoomTemperature(), s.data, getImage(R.drawable.bedroom), itemHome.getOn(),itemHome.getNumberOfLamp(), itemHome.getNumberOfFan()));
+                }
+                else{
+                    itemHomes.add(new ItemHome("BedRoom 1", s.data, itemHome.getRoomBrightness(), getImage(R.drawable.bedroom), itemHome.getOn(),itemHome.getNumberOfLamp(), itemHome.getNumberOfFan()));
+
                 }
                 itemHomeAdapter = new ItemHomeAdapter(getContext(), itemHomes);
                 LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
