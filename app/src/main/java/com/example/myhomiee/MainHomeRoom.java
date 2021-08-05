@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.view.menu.MenuBuilder;
 import android.support.v7.view.menu.MenuPopupHelper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -22,9 +23,17 @@ import android.widget.PopupMenu;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
+import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
+import org.eclipse.paho.client.mqttv3.MqttCallbackExtended;
+import org.eclipse.paho.client.mqttv3.MqttMessage;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+
+import helpers.MqttHelper;
 
 public class MainHomeRoom extends AppCompatActivity {
 
@@ -41,6 +50,7 @@ public class MainHomeRoom extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_home_room);
+        startMqtt();
         try {
             this.getSupportActionBar().hide();
         }catch (NullPointerException e){}
@@ -317,5 +327,81 @@ public class MainHomeRoom extends AppCompatActivity {
             alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
         }
         alertDialog.show();
+    }
+    public void startMqtt(){
+        MqttHelper mqttHelper = new MqttHelper(this);
+        mqttHelper.mqttAndroidClient.setCallback(new MqttCallbackExtended() {
+            @Override
+            public void connectComplete(boolean b, String s) {
+                Log.w("Debug","Connected");
+            }
+
+            @Override
+            public void connectionLost(Throwable throwable) {
+
+            }
+
+            @Override
+            public void messageArrived(String topic, MqttMessage mqttMessage) throws Exception {
+                Gson g = new Gson();
+                dataReponse s = g.fromJson(mqttMessage.toString(), dataReponse.class);
+                // cục DATA ở đây nè, là thằng S đó, nó là class dataReponse
+                // hoặc ôgn lấy cái string là mqttMEssage.toString() cũng được
+                // bên itemHOmeDevice nhận dc là oke
+                Log.e("RECEIVED",mqttMessage.toString());
+
+//                if (s.name.equals("LED") && s.data == 1) {
+//                    for (int i =0  ; i<itemHomeDevices.size();i++) {
+//                        if (itemHomeDevices.get(i).getDeviceName().equals("Lamp1")){
+//                            itemHomeDevices.get(i).setOn(true);
+//                            setItemHomeDevices(itemHomeDevices);
+//                        }
+//
+//                    }
+//                }
+//                else if (s.name.equals("LED") && s.data == 0) {
+//                    for (int i =0  ; i<itemHomeDevices.size();i++) {
+//                        if (itemHomeDevices.get(i).getDeviceName().equals("Lamp1")){
+//                            itemHomeDevices.get(i).setOn(false);
+//                            setItemHomeDevices(itemHomeDevices);
+//
+//                        }
+//                    }
+//                }
+//                else if (s.name.equals("DRV") && s.data == 0) {
+//                    for (int i =0  ; i<itemHomeDevices.size();i++) {
+//                        if (itemHomeDevices.get(i).getDeviceName().equals("Fan1")){
+//                            itemHomeDevices.get(i).setOn(false);
+//                            setItemHomeDevices(itemHomeDevices);
+//
+//                        }
+//                    }
+//                }
+//                else if (s.name.equals("DRV") && s.data == 255) {
+//                    for (int i =0  ; i<itemHomeDevices.size();i++) {
+//                        if (itemHomeDevices.get(i).getDeviceName().equals("Fan1")){
+//                            itemHomeDevices.get(i).setOn(true);
+//                            setItemHomeDevices(itemHomeDevices);
+//
+//                        }
+//                    }
+//                }
+//                else if (s.name.equals("LIGHT") && s.data < 300 && itemHomeDevices.get(0).getParentOn() ) {
+//                    for (int i =0  ; i<itemHomeDevices.size();i++) {
+//                        if (itemHomeDevices.get(i).getDeviceName().equals("Lamp1")){
+//                            itemHomeDevices.get(i).setOn(true);
+//                            setItemHomeDevices(itemHomeDevices);
+//
+//                        }
+//                    }
+//                }
+
+            }
+
+            @Override
+            public void deliveryComplete(IMqttDeliveryToken iMqttDeliveryToken) {
+
+            }
+        });
     }
 }

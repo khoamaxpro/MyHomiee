@@ -71,7 +71,7 @@ public class ItemHomeDeviceAdapter extends RecyclerView.Adapter<ItemHomeDeviceAd
         holder.switchDevice.setChecked(itemHomeDevice.getOn());
         int position_2 = position;
         if(itemHomeDevice.getParentOn()){
-            startMqtt();
+//            startMqtt();
             holder.txtDeviceName.setTextColor(Color.parseColor("#A4A4A4"));
             holder.switchDevice.setTrackResource(R.drawable.track2);
 
@@ -130,22 +130,33 @@ public class ItemHomeDeviceAdapter extends RecyclerView.Adapter<ItemHomeDeviceAd
         }
     }
 
-    public void startMqtt(){
-        MqttHelper mqttHelper = new MqttHelper(context.getApplicationContext());
-        mqttHelper.mqttAndroidClient.setCallback(new MqttCallbackExtended() {
-            @Override
-            public void connectComplete(boolean b, String s) {
-                Log.w("Debug","Connected");
-            }
-
-            @Override
-            public void connectionLost(Throwable throwable) {
-
-            }
-
-            @Override
-            public void messageArrived(String topic, MqttMessage mqttMessage) throws Exception {
-                Gson g = new Gson();
+//    public void startMqtt(){
+//        MqttHelper mqttHelper = new MqttHelper(context.getApplicationContext());
+//        mqttHelper.mqttAndroidClient.setCallback(new MqttCallbackExtended() {
+//            @Override
+//            public void connectComplete(boolean b, String s) {
+//                Log.w("Debug","Connected");
+//            }
+//
+//            @Override
+//            public void connectionLost(Throwable throwable) {
+//
+//            }
+//
+//            @Override
+//            public void messageArrived(String topic, MqttMessage mqttMessage) throws Exception {
+//
+//
+//            }
+//
+//            @Override
+//            public void deliveryComplete(IMqttDeliveryToken iMqttDeliveryToken) {
+//
+//            }
+//        });
+//    }
+    public void receiveData(MqttMessage mqttMessage){
+        Gson g = new Gson();
                 dataReponse s = g.fromJson(mqttMessage.toString(), dataReponse.class);
                 Log.e("RECEIVED",mqttMessage.toString());
                 if (s.name.equals("LED") && s.data == 1) {
@@ -193,14 +204,6 @@ public class ItemHomeDeviceAdapter extends RecyclerView.Adapter<ItemHomeDeviceAd
                         }
                     }
                 }
-
-            }
-
-            @Override
-            public void deliveryComplete(IMqttDeliveryToken iMqttDeliveryToken) {
-
-            }
-        });
     }
     private void sendDataLED(String data){
         MqttMessage msg = new MqttMessage();
