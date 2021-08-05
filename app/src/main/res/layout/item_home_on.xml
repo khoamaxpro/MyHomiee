@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
-
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
     <LinearLayout
         android:id="@+id/linearHomeName"
         android:layout_width="match_parent"
@@ -65,7 +64,7 @@
                         app:showText="true"
                         android:thumb="@drawable/thumb1"
                         app:track="@drawable/track1"
-                        android:checked="false"
+                        android:checked="true"
                         ></android.support.v7.widget.SwitchCompat>
                 </LinearLayout>
 

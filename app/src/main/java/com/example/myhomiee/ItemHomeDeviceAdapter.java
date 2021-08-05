@@ -70,23 +70,22 @@ public class ItemHomeDeviceAdapter extends RecyclerView.Adapter<ItemHomeDeviceAd
         holder.txtDeviceName.setText(itemHomeDevice.getDeviceName());
         holder.switchDevice.setChecked(itemHomeDevice.getOn());
         int position_2 = position;
-        if(itemHomeDevice.getParentOn()){
+        if (itemHomeDevice.getParentOn()) {
 //            startMqtt();
             holder.txtDeviceName.setTextColor(Color.parseColor("#A4A4A4"));
             holder.switchDevice.setTrackResource(R.drawable.track2);
 
-            if(itemHomeDevice.getDeviceName().startsWith("L")){
+            if (itemHomeDevice.getDeviceName().startsWith("L")) {
                 holder.imageViewDeviceImage.setBackgroundResource(R.drawable.lamp_off);
-            }else {
+            } else {
                 holder.imageViewDeviceImage.setBackgroundResource(R.drawable.fan_off);
             }
-        }
-        else{
+        } else {
             holder.txtDeviceName.setTextColor(Color.BLACK);
             holder.switchDevice.setTrackResource(R.drawable.track1);
-            if(itemHomeDevice.getDeviceName().startsWith("L")){
+            if (itemHomeDevice.getDeviceName().startsWith("L")) {
                 holder.imageViewDeviceImage.setBackgroundResource(R.drawable.lamp_on);
-            }else {
+            } else {
                 holder.imageViewDeviceImage.setBackgroundResource(R.drawable.fan_on);
             }
             holder.imageViewDeviceImage.setOnTouchListener(new View.OnTouchListener() {
@@ -94,10 +93,9 @@ public class ItemHomeDeviceAdapter extends RecyclerView.Adapter<ItemHomeDeviceAd
                 public boolean onTouch(View v, MotionEvent event) {
                     itemHomeDevice.setOn(!itemHomeDevice.getOn());
                     itemHomeDevices.set(position_2, itemHomeDevice);
-                    if (itemHomeDevice.getDeviceName().equals("Lamp1")) {
-                        if (itemHomeDevice.getOn()) sendDataLED("1"); else sendDataLED(("0"));
-                    }
                     setItemHomeDevices(itemHomeDevices);
+
+                    ((MainHomeRoom)context).khoa();
                     return false;
                 }
             });
@@ -122,100 +120,12 @@ public class ItemHomeDeviceAdapter extends RecyclerView.Adapter<ItemHomeDeviceAd
         private TextView txtDeviceName;
         private ImageView imageViewDeviceImage;
         private Switch switchDevice;
+
         public DataViewHolder(View itemView) {
             super(itemView);
             txtDeviceName = (TextView) itemView.findViewById(R.id.txtDeviceName);
             imageViewDeviceImage = (ImageView) itemView.findViewById(R.id.imageViewDevice);
             switchDevice = (Switch) itemView.findViewById(R.id.switchDevice);
-        }
-    }
-
-//    public void startMqtt(){
-//        MqttHelper mqttHelper = new MqttHelper(context.getApplicationContext());
-//        mqttHelper.mqttAndroidClient.setCallback(new MqttCallbackExtended() {
-//            @Override
-//            public void connectComplete(boolean b, String s) {
-//                Log.w("Debug","Connected");
-//            }
-//
-//            @Override
-//            public void connectionLost(Throwable throwable) {
-//
-//            }
-//
-//            @Override
-//            public void messageArrived(String topic, MqttMessage mqttMessage) throws Exception {
-//
-//
-//            }
-//
-//            @Override
-//            public void deliveryComplete(IMqttDeliveryToken iMqttDeliveryToken) {
-//
-//            }
-//        });
-//    }
-    public void receiveData(MqttMessage mqttMessage){
-        Gson g = new Gson();
-                dataReponse s = g.fromJson(mqttMessage.toString(), dataReponse.class);
-                Log.e("RECEIVED",mqttMessage.toString());
-                if (s.name.equals("LED") && s.data == 1) {
-                    for (int i =0  ; i<itemHomeDevices.size();i++) {
-                        if (itemHomeDevices.get(i).getDeviceName().equals("Lamp1")){
-                            itemHomeDevices.get(i).setOn(true);
-                            setItemHomeDevices(itemHomeDevices);
-                        }
-
-                    }
-                }
-                else if (s.name.equals("LED") && s.data == 0) {
-                    for (int i =0  ; i<itemHomeDevices.size();i++) {
-                        if (itemHomeDevices.get(i).getDeviceName().equals("Lamp1")){
-                            itemHomeDevices.get(i).setOn(false);
-                            setItemHomeDevices(itemHomeDevices);
-
-                        }
-                    }
-                }
-                else if (s.name.equals("DRV") && s.data == 0) {
-                    for (int i =0  ; i<itemHomeDevices.size();i++) {
-                        if (itemHomeDevices.get(i).getDeviceName().equals("Fan1")){
-                            itemHomeDevices.get(i).setOn(false);
-                            setItemHomeDevices(itemHomeDevices);
-
-                        }
-                    }
-                }
-                else if (s.name.equals("DRV") && s.data == 255) {
-                    for (int i =0  ; i<itemHomeDevices.size();i++) {
-                        if (itemHomeDevices.get(i).getDeviceName().equals("Fan1")){
-                            itemHomeDevices.get(i).setOn(true);
-                            setItemHomeDevices(itemHomeDevices);
-
-                        }
-                    }
-                }
-                else if (s.name.equals("LIGHT") && s.data < 300 && itemHomeDevices.get(0).getParentOn() ) {
-                    for (int i =0  ; i<itemHomeDevices.size();i++) {
-                        if (itemHomeDevices.get(i).getDeviceName().equals("Lamp1")){
-                            itemHomeDevices.get(i).setOn(true);
-                            setItemHomeDevices(itemHomeDevices);
-
-                        }
-                    }
-                }
-    }
-    private void sendDataLED(String data){
-        MqttMessage msg = new MqttMessage();
-        String finaldata = "{\"id\":\"1\",\"name\":\"LED\",\"data\":\""+ data + "\",\"unit\":\"\"}" ;
-
-        msg.setPayload(finaldata.getBytes());
-
-        Log.d("ABC","Publish:"+ msg);
-        try {
-            MqttHelper.mqttAndroidClient.publish("khoa01268/feeds/bk-iot-led", msg);
-        } catch ( MqttException e){
-
         }
     }
 }

@@ -45,9 +45,32 @@ public class ItemHomeAdapter extends RecyclerView.Adapter<ItemHomeAdapter.DataVi
     }
 
     @Override
+    public int getItemViewType(int position) {
+        // Cài đặt kiểu item view type cho từng phần tử, nếu có giới tính là nam thì trả về 1, nữ thì trả về 2.
+        if (itemHomes.get(position).getOn()) {
+            return 1;
+        } else {
+            return 2;
+        }
+    }
+
+    @Override
     public ItemHomeAdapter.DataViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView;
-        itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_home_off, parent, false);
+        //itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_home_off, parent, false);
+
+        switch (viewType) {
+            case 1:
+                itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_home_on, parent, false);
+                break;
+            case 2:
+                itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_home_off, parent, false);
+                break;
+            default:
+                itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_home_on, parent, false);
+                break;
+        }
+
         return new DataViewHolder(itemView);
     }
 
@@ -110,11 +133,16 @@ public class ItemHomeAdapter extends RecyclerView.Adapter<ItemHomeAdapter.DataVi
         });
         if(holder.itemLamps.isEmpty() && holder.itemFans.isEmpty())
         {
-            for(int i = 0;i < itemHome.getNumberOfLamp();i++){
-                holder.itemLamps.add(new ItemHomeDevice("Lamp" + String.valueOf(i+1), itemHome.getRoomName(), false, itemHome.getOn()));
+            if(itemHome.getNumberOfLamp() == 1){
+                holder.itemLamps.add(new ItemHomeDevice("Lamp" + String.valueOf(1), itemHome.getRoomName(), true, itemHome.getOn()));
             }
-            for(int i = 0;i < itemHome.getNumberOfFan();i++){
-                holder.itemFans.add(new ItemHomeDevice("Fan" + String.valueOf(i+1),  itemHome.getRoomName(),false, itemHome.getOn()));
+            else{
+                holder.itemLamps.add(new ItemHomeDevice("Lamp" + String.valueOf(1), itemHome.getRoomName(), false, itemHome.getOn()));
+            }
+            if(itemHome.getNumberOfFan() == 255){
+                holder.itemFans.add(new ItemHomeDevice("Fan" + String.valueOf(1),  itemHome.getRoomName(),true, itemHome.getOn()));
+            }else {
+                holder.itemFans.add(new ItemHomeDevice("Fan" + String.valueOf(1),  itemHome.getRoomName(),false, itemHome.getOn()));
             }
             holder.itemHomeLampAdapter = new ItemHomeDeviceAdapter(holder.context, holder.itemLamps);
             holder.recyclerViewLamp.setLayoutManager(holder.layoutManagerLamp);
@@ -190,4 +218,5 @@ public class ItemHomeAdapter extends RecyclerView.Adapter<ItemHomeAdapter.DataVi
 
         }
     }
+
 }
