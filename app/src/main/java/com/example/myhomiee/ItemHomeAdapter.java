@@ -133,13 +133,13 @@ public class ItemHomeAdapter extends RecyclerView.Adapter<ItemHomeAdapter.DataVi
         });
         if(holder.itemLamps.isEmpty() && holder.itemFans.isEmpty())
         {
-            if(itemHome.getNumberOfLamp() == 1){
+            if(itemHome.getNumberOfLamp() != 0){
                 holder.itemLamps.add(new ItemHomeDevice("Lamp" + String.valueOf(1), itemHome.getRoomName(), true, itemHome.getOn()));
             }
             else{
                 holder.itemLamps.add(new ItemHomeDevice("Lamp" + String.valueOf(1), itemHome.getRoomName(), false, itemHome.getOn()));
             }
-            if(itemHome.getNumberOfFan() == 255){
+            if(itemHome.getNumberOfFan() != 0){
                 holder.itemFans.add(new ItemHomeDevice("Fan" + String.valueOf(1),  itemHome.getRoomName(),true, itemHome.getOn()));
             }else {
                 holder.itemFans.add(new ItemHomeDevice("Fan" + String.valueOf(1),  itemHome.getRoomName(),false, itemHome.getOn()));

@@ -25,7 +25,7 @@ public class MqttHelper {
 
 
     final String username = "khoa01268";
-    final String password = "aio_Nuzi64QexTXyvVCBDJjqxGkv0FjL";
+    final String password = "aio_Ebxj30c0uQ4P9bwcZTmqmPVWfSG8";
 
     public MqttHelper(Context context){
         mqttAndroidClient = new MqttAndroidClient(context, serverUri, clientId);

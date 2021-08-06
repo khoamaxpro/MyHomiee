@@ -80,6 +80,7 @@ public class ItemHomeDeviceAdapter extends RecyclerView.Adapter<ItemHomeDeviceAd
             } else {
                 holder.imageViewDeviceImage.setBackgroundResource(R.drawable.fan_off);
             }
+
         } else {
             holder.txtDeviceName.setTextColor(Color.BLACK);
             holder.switchDevice.setTrackResource(R.drawable.track1);
@@ -100,8 +101,6 @@ public class ItemHomeDeviceAdapter extends RecyclerView.Adapter<ItemHomeDeviceAd
                         if (itemHomeDevice.getOn()) sendDataFAN("255"); else sendDataFAN(("0"));
                     }
                     setItemHomeDevices(itemHomeDevices);
-
-
                     return false;
                 }
             });

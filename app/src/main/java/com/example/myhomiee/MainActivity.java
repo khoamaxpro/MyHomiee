@@ -40,6 +40,22 @@ public class MainActivity extends AppCompatActivity {
         btnLogIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(userEmail.getText().toString().trim().equals("")){
+                    Toast.makeText(MainActivity.this, "Chưa nhập email", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(userEmail.getText().toString().trim().length() < 6){
+                    Toast.makeText(MainActivity.this, "Email phải có ít nhất 6 ký tự", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(password.getText().toString().trim().equals("")){
+                    Toast.makeText(MainActivity.this, "Chưa nhập password", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(password.getText().toString().trim().length() < 6){
+                    Toast.makeText(MainActivity.this, "Password phải có ít nhất 6 ký tự", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 firebaseAuth.signInWithEmailAndPassword(userEmail.getText().toString(),
                         password.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override

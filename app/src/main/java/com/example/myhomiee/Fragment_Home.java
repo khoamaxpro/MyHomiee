@@ -25,7 +25,9 @@ import com.google.gson.Gson;
 
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallbackExtended;
+import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.json.JSONObject;
 
 import helpers.MqttHelper;
 
@@ -129,15 +131,19 @@ public class Fragment_Home extends Fragment {
                 }
                 else if(s.name.equals("LIGHT") && s.data > getLight && itemHome.getOn()){
                     itemHomes.add(new ItemHome("BedRoom 1", itemHome.getRoomTemperature(), s.data, getImage(R.drawable.bedroom), itemHome.getOn(),0, itemHome.getNumberOfFan()));
+                    sendDataLED(("0"));
                 }
                 else if(s.name.equals("LIGHT") && s.data < getLight && itemHome.getOn()){
                     itemHomes.add(new ItemHome("BedRoom 1", itemHome.getRoomTemperature(), s.data, getImage(R.drawable.bedroom), itemHome.getOn(),1, itemHome.getNumberOfFan()));
+                    sendDataLED(("1"));
                 }
                 else if(s.name.equals("TEMP") && s.data > getTemp && itemHome.getOn()){
-                    itemHomes.add(new ItemHome("BedRoom 1", itemHome.getRoomTemperature(), s.data, getImage(R.drawable.bedroom), itemHome.getOn(),itemHome.getNumberOfLamp(), 1));
+                    itemHomes.add(new ItemHome("BedRoom 1", s.data, itemHome.getRoomBrightness(), getImage(R.drawable.bedroom), itemHome.getOn(),itemHome.getNumberOfLamp(), 1));
+                    sendDataFAN(("255"));
                 }
                 else if(s.name.equals("TEMP") && s.data < getTemp && itemHome.getOn()){
-                    itemHomes.add(new ItemHome("BedRoom 1", itemHome.getRoomTemperature(), s.data, getImage(R.drawable.bedroom), itemHome.getOn(),itemHome.getNumberOfLamp(),0));
+                    itemHomes.add(new ItemHome("BedRoom 1", s.data, itemHome.getRoomBrightness(), getImage(R.drawable.bedroom), itemHome.getOn(),itemHome.getNumberOfLamp(),0));
+                    sendDataFAN(("0"));
                 }
                 else {
                     itemHomes.add(new ItemHome("BedRoom 1", s.data, itemHome.getRoomBrightness(), getImage(R.drawable.bedroom), itemHome.getOn(),itemHome.getNumberOfLamp(), itemHome.getNumberOfFan()));
@@ -155,6 +161,33 @@ public class Fragment_Home extends Fragment {
 
             }
         });
+    }
+
+    private void sendDataLED(String data){
+        MqttMessage msg = new MqttMessage();
+        String finaldata = "{\"id\":\"1\",\"name\":\"LED\",\"data\":\""+ data + "\",\"unit\":\"\"}" ;
+
+        msg.setPayload(finaldata.getBytes());
+
+        Log.d("ABC","Publish:"+ msg);
+        try {
+            MqttHelper.mqttAndroidClient.publish("khoa01268/feeds/bk-iot-led", msg);
+        } catch ( MqttException e){
+
+        }
+    }
+    private void sendDataFAN(String data){
+        MqttMessage msg = new MqttMessage();
+        String finaldata = "{\"id\":\"10\",\"name\":\"DRV\",\"data\":\""+ data + "\",\"unit\":\"\"}" ;
+
+        msg.setPayload(finaldata.getBytes());
+
+        Log.d("ABC","Publish:"+ msg);
+        try {
+            MqttHelper.mqttAndroidClient.publish("khoa01268/feeds/bk-iot-drv", msg);
+        } catch ( MqttException e){
+
+        }
     }
 
 
