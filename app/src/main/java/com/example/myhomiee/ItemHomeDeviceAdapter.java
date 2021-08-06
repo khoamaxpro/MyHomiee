@@ -95,7 +95,7 @@ public class ItemHomeDeviceAdapter extends RecyclerView.Adapter<ItemHomeDeviceAd
                     itemHomeDevices.set(position_2, itemHomeDevice);
                     setItemHomeDevices(itemHomeDevices);
 
-                    ((MainHomeRoom)context).khoa();
+
                     return false;
                 }
             });

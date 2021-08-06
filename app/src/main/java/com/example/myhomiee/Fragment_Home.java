@@ -1,6 +1,7 @@
 package com.example.myhomiee;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -98,7 +99,8 @@ public class Fragment_Home extends Fragment {
                 // cục DATA ở đây nè, là thằng S đó, nó là class dataReponse
                 // hoặc ôgn lấy cái string là mqttMEssage.toString() cũng được
                 // bên itemHOmeDevice nhận dc là ok
-
+                Context context = getContext();
+                ((MainHomeRoom)context).khoa();
                 Log.e("RECEIVE", mqttMessage.toString());
                 ItemHome itemHome = itemHomes.get(0);
                 itemHomes.clear();
@@ -107,10 +109,10 @@ public class Fragment_Home extends Fragment {
                 }else if(s.name.equals("DRV")){
                     itemHomes.add(new ItemHome("BedRoom 1", itemHome.getRoomTemperature(), itemHome.getRoomBrightness(), getImage(R.drawable.bedroom), itemHome.getOn(),itemHome.getNumberOfLamp(), s.data));
                 }
-                else if(s.name.equals("LIGHT")){
+                else if(s.name.equals("LIGHT") && s.data > 400 && itemHome.getOn()){
                     itemHomes.add(new ItemHome("BedRoom 1", itemHome.getRoomTemperature(), s.data, getImage(R.drawable.bedroom), itemHome.getOn(),itemHome.getNumberOfLamp(), itemHome.getNumberOfFan()));
                 }
-                else{
+                else {
                     itemHomes.add(new ItemHome("BedRoom 1", s.data, itemHome.getRoomBrightness(), getImage(R.drawable.bedroom), itemHome.getOn(),itemHome.getNumberOfLamp(), itemHome.getNumberOfFan()));
 
                 }

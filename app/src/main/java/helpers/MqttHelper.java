@@ -20,14 +20,12 @@ public class MqttHelper {
 
     final String serverUri = "tcp://io.adafruit.com:1883";
     final String clientId = "khoa0ss1268";
-    final String subscriptionTopic = "khoa01268/feeds/bk-iot-led";
-    final String subscriptionTopic2 = "khoa01268/feeds/bk-iot-drv";
-    final String subscriptionTopic3 = "khoa01268/feeds/bk-iot-light";
-    final String subscriptionTopic4 = "khoa01268/feeds/bk-iot-temperature";
+    final String subscriptionTopic = "khoa01258/feeds/#";
+
 
 
     final String username = "khoa01268";
-    final String password = "aio_gIlv586Fc08JKptCHJw3CtzDta41";
+    final String password = "aio_ApIM06LwK2d1OVD9Zp15fT91jdQs";
 
     public MqttHelper(Context context){
         mqttAndroidClient = new MqttAndroidClient(context, serverUri, clientId);
@@ -79,9 +77,7 @@ public class MqttHelper {
                     disconnectedBufferOptions.setDeleteOldestMessages(false);
                     mqttAndroidClient.setBufferOpts(disconnectedBufferOptions);
                     subscribeToTopic();
-                    subscribeToTopic2();
-                    subscribeToTopic3();
-                    subscribeToTopic4();
+
 
                 }
 
@@ -117,58 +113,5 @@ public class MqttHelper {
         }
     }
 
-    private void subscribeToTopic2() {
-        try {
-            mqttAndroidClient.subscribe(subscriptionTopic2 , 1 , null, new IMqttActionListener() {
-                public void onSuccess(IMqttToken asyncActionToken) {
-                    Log.w("Mqtt","Subscribed2!");
-                }
 
-                @Override
-                public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
-                    Log.w("Mqtt", "Subscribed 1 fail!");
-                }
-            });
-
-        } catch (MqttException ex) {
-            System.err.println("Exception whilst subscribing");
-            ex.printStackTrace();
-        }
-    }
-    private void subscribeToTopic3() {
-        try {
-            mqttAndroidClient.subscribe(subscriptionTopic3 , 2 , null, new IMqttActionListener() {
-                public void onSuccess(IMqttToken asyncActionToken) {
-                    Log.w("Mqtt","Subscribed3!");
-                }
-
-                @Override
-                public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
-                    Log.w("Mqtt", "Subscribed 1 fail!");
-                }
-            });
-
-        } catch (MqttException ex) {
-            System.err.println("Exception whilst subscribing");
-            ex.printStackTrace();
-        }
-    }
-    private void subscribeToTopic4() {
-        try {
-            mqttAndroidClient.subscribe(subscriptionTopic4 , 3 , null, new IMqttActionListener() {
-                public void onSuccess(IMqttToken asyncActionToken) {
-                    Log.w("Mqtt","Subscribed4!");
-                }
-
-                @Override
-                public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
-                    Log.w("Mqtt", "Subscribed 1 fail!");
-                }
-            });
-
-        } catch (MqttException ex) {
-            System.err.println("Exception whilst subscribing");
-            ex.printStackTrace();
-        }
-    }
 }

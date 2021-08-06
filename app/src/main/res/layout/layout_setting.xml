@@ -33,12 +33,12 @@
                 android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TEMPARATURE BONUDARY : "
+                android:text="TEMPARATURE BOUNDARY: "
                 android:textColor="#383838"
                 android:textSize="17dp"
                 ></TextView>
             <EditText
-                android:id="@+id/editTextTemparature"
+                android:id="@+id/editTextTemparatureBoundary"
                 android:layout_weight="2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -55,18 +55,19 @@
                 android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="LIGHT ON TIME : "
+                android:text="LIGHT BOUNDARY: "
                 android:textColor="#383838"
                 android:textSize="17dp"
                 ></TextView>
             <EditText
-                android:id="@+id/editTextLightTime"
+                android:id="@+id/editTextLightBoundary"
                 android:layout_weight="2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
+                android:inputType="number"
                 android:padding="3dp"
-                android:focusableInTouchMode="false"></EditText>
+                ></EditText>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"

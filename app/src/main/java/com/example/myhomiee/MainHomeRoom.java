@@ -43,7 +43,7 @@ public class MainHomeRoom extends AppCompatActivity {
     static String timeLight = "";
     static String timeNightMode = "";
     static String timeSleep = "";
-    EditText editTextTemparature, editTextLightTime, editTextNightModeTime, editTextSleepTime;
+    EditText editTextTemparatureBoundary, editTextLightBoundary, editTextNightModeTime, editTextSleepTime;
     TimePickerDialog timePickerDialog;
     ImageButton imgbtnHome, imgbtnFan, imgbtnLamp, imgbtnMenu;
     LinearLayout linearHome, linearLamp, linearFan, linearMenu, linearHomeListView, linearLampListView, linearFanListView;
@@ -80,7 +80,7 @@ public class MainHomeRoom extends AppCompatActivity {
                     currentTime = currentTime.replace(":", "");
                     String timeNightMode_2 = timeNightMode;
                     timeNightMode_2 = timeNightMode_2.replace(":","");
-                    if(Integer.parseInt(timeNightMode_2) < Integer.parseInt(currentTime)){
+                    if(Integer.parseInt(timeNightMode_2) < Integer.parseInt(currentTime) || Integer.parseInt(currentTime) < 600){
                         linearMenu.setBackgroundColor(Color.parseColor("#6B0606"));
                         lightMode = false;
                     }else{
@@ -111,7 +111,7 @@ public class MainHomeRoom extends AppCompatActivity {
                     currentTime = currentTime.replace(":", "");
                     String timeNightMode_2 = timeNightMode;
                     timeNightMode_2 = timeNightMode_2.replace(":","");
-                    if(Integer.parseInt(timeNightMode_2) < Integer.parseInt(currentTime)){
+                    if(Integer.parseInt(timeNightMode_2) < Integer.parseInt(currentTime) || Integer.parseInt(currentTime) < 600){
                         linearMenu.setBackgroundColor(Color.parseColor("#6B0606"));
                         lightMode = false;
                     }else{
@@ -141,7 +141,7 @@ public class MainHomeRoom extends AppCompatActivity {
                     currentTime = currentTime.replace(":", "");
                     String timeNightMode_2 = timeNightMode;
                     timeNightMode_2 = timeNightMode_2.replace(":","");
-                    if(Integer.parseInt(timeNightMode_2) < Integer.parseInt(currentTime)){
+                    if(Integer.parseInt(timeNightMode_2) < Integer.parseInt(currentTime) || Integer.parseInt(currentTime) < 600){
                         linearMenu.setBackgroundColor(Color.parseColor("#6B0606"));
                         lightMode = false;
                     }else{
@@ -250,31 +250,14 @@ public class MainHomeRoom extends AppCompatActivity {
         );
         builder.setView(view);
         final AlertDialog alertDialog = builder.create();
-        editTextTemparature = (EditText) view.findViewById(R.id.editTextTemparature);
-        editTextLightTime = (EditText) view.findViewById(R.id.editTextLightTime);
+        editTextTemparatureBoundary = (EditText) view.findViewById(R.id.editTextTemparatureBoundary);
+        editTextLightBoundary = (EditText) view.findViewById(R.id.editTextLightBoundary);
         editTextNightModeTime = (EditText) view.findViewById(R.id.editTextNightModeTime);
         editTextSleepTime = (EditText) view.findViewById(R.id.editTextSleepTime);
 
-        editTextTemparature.setText(temparature);
-        editTextLightTime.setText(timeLight);
-        editTextLightTime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                editTextLightTime.setText("");
-                timePickerDialog = new TimePickerDialog(MainHomeRoom.this, new TimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        if(minute < 10){
-                            editTextLightTime.setText(hourOfDay + ":0" + minute);
-                        }
-                        else{
-                            editTextLightTime.setText(hourOfDay + ":" + minute);
-                        }
-                    }
-                }, 0,0,false);
-                timePickerDialog.show();
-            }
-        });
+        editTextTemparatureBoundary.setText(temparature);
+        editTextLightBoundary.setText(timeLight);
+
 
         editTextNightModeTime.setText(timeNightMode);
         editTextNightModeTime.setOnClickListener(new View.OnClickListener() {
@@ -318,8 +301,8 @@ public class MainHomeRoom extends AppCompatActivity {
         view.findViewById(R.id.btnSave).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                temparature = editTextTemparature.getText().toString().trim();
-                timeLight = editTextLightTime.getText().toString().trim();
+                temparature = editTextTemparatureBoundary.getText().toString().trim();
+                timeLight = editTextLightBoundary.getText().toString().trim();
                 timeNightMode = editTextNightModeTime.getText().toString().trim();
                 timeSleep = editTextSleepTime.getText().toString().trim();
                 Toast.makeText(MainHomeRoom.this, "Điều chỉnh Setting thành công", Toast.LENGTH_SHORT).show();
@@ -333,5 +316,13 @@ public class MainHomeRoom extends AppCompatActivity {
     }
     public void khoa(){
         Toast.makeText(MainHomeRoom.this, "nhan duoc roi", Toast.LENGTH_SHORT).show();
+    }
+
+    public String getTempBoundary(){
+        return temparature;
+    }
+
+    public String getLightBoundary(){
+        return timeLight;
     }
 }
