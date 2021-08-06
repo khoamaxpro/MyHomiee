@@ -100,10 +100,21 @@ public class Fragment_Home extends Fragment {
                 // hoặc ôgn lấy cái string là mqttMEssage.toString() cũng được
                 // bên itemHOmeDevice nhận dc là ok
                 Context context = getContext();
-                ((MainHomeRoom)context).khoa();
+                int getLight = 400;
+                int getTemp = 25;
+                String temp = ((MainHomeRoom)context).getTempBoundary();
+                String light = ((MainHomeRoom)context).getLightBoundary();
                 Log.e("RECEIVE", mqttMessage.toString());
                 ItemHome itemHome = itemHomes.get(0);
                 itemHomes.clear();
+
+                if (!temp.isEmpty()) {
+                    getTemp = Integer.parseInt(temp);
+                }
+                if(!light.isEmpty()){
+                    getLight = Integer.parseInt(light);
+                }
+
                 if(s.name.equals("LED")){
                     itemHomes.add(new ItemHome("BedRoom 1", itemHome.getRoomTemperature(), itemHome.getRoomBrightness(), getImage(R.drawable.bedroom), itemHome.getOn(), s.data, itemHome.getNumberOfFan()));
                 }
@@ -116,16 +127,16 @@ public class Fragment_Home extends Fragment {
                 else if(s.name.equals("TEMP") && !itemHome.getOn()){
                     itemHomes.add(new ItemHome("BedRoom 1", s.data, itemHome.getRoomBrightness(), getImage(R.drawable.bedroom), itemHome.getOn(),itemHome.getNumberOfLamp(), itemHome.getNumberOfFan()));
                 }
-                else if(s.name.equals("LIGHT") && s.data > 400 && itemHome.getOn()){
+                else if(s.name.equals("LIGHT") && s.data > getLight && itemHome.getOn()){
                     itemHomes.add(new ItemHome("BedRoom 1", itemHome.getRoomTemperature(), s.data, getImage(R.drawable.bedroom), itemHome.getOn(),0, itemHome.getNumberOfFan()));
                 }
-                else if(s.name.equals("LIGHT") && s.data < 400 && itemHome.getOn()){
+                else if(s.name.equals("LIGHT") && s.data < getLight && itemHome.getOn()){
                     itemHomes.add(new ItemHome("BedRoom 1", itemHome.getRoomTemperature(), s.data, getImage(R.drawable.bedroom), itemHome.getOn(),1, itemHome.getNumberOfFan()));
                 }
-                else if(s.name.equals("TEMP") && s.data > 25 && itemHome.getOn()){
+                else if(s.name.equals("TEMP") && s.data > getTemp && itemHome.getOn()){
                     itemHomes.add(new ItemHome("BedRoom 1", itemHome.getRoomTemperature(), s.data, getImage(R.drawable.bedroom), itemHome.getOn(),itemHome.getNumberOfLamp(), 1));
                 }
-                else if(s.name.equals("TEMP") && s.data < 25 && itemHome.getOn()){
+                else if(s.name.equals("TEMP") && s.data < getTemp && itemHome.getOn()){
                     itemHomes.add(new ItemHome("BedRoom 1", itemHome.getRoomTemperature(), s.data, getImage(R.drawable.bedroom), itemHome.getOn(),itemHome.getNumberOfLamp(),0));
                 }
                 else {
